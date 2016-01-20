@@ -43,7 +43,7 @@ class MoneyTDDTests: XCTestCase {
     
     func testSimpleAddition() {
         let five: Money = Money.dollar(5)
-        let sum: Expression = five.plus(five)
+        let sum = five.plus(five)
         let bank = Bank()
         let reduced: Money = bank.reduce(sum, to: "USD")
         XCTAssertEqual(Money.dollar(10), reduced)
@@ -51,8 +51,7 @@ class MoneyTDDTests: XCTestCase {
     
     func testPlusReturnSum() {
         let five: Money = Money.dollar(5)
-        let result: Expression = five.plus(five)
-        let sum: Sum = result as! Sum
+        let sum = five.plus(five)
         XCTAssertEqual(sum.augend, five)
         XCTAssertEqual(sum.addend, five)
     }
@@ -72,7 +71,7 @@ class MoneyTDDTests: XCTestCase {
     
     func testReduceDifferentCurrency() {
         let bank = Bank()
-        bank.addRate("CHF", to: "USD", rate: 2)
+        bank.addRate(from:"CHF", to: "USD", rate: 2)
         let result = bank.reduce(Money.franc(4), to: "USD")
         XCTAssertEqual(result, Money.dollar(2))
     }
@@ -85,16 +84,66 @@ class MoneyTDDTests: XCTestCase {
         let fiveBucks: Money = Money.dollar(5)
         let tenFrancs: Money = Money.franc(10)
         let bank = Bank()
-        bank.addRate("CHF", to: "USD", rate: 2)
+        bank.addRate(from:"CHF", to: "USD", rate: 2)
         
         let result: Money = bank.reduce(fiveBucks.plus(tenFrancs), to: "USD")
         XCTAssertEqual(Money.dollar(10), result)
     }
     
-    func testExpressionEquatable() {
-        let five: Money = Money.dollar(5)
-        let result: Expression = five.plus(five)
-//        let five: Money = Money.dollar(5)
-//        let result: Expression = five.plus(five)
+    func testMoneyPlusSum() {
+        let three = Money.dollar(3)
+        let sum = Money.dollar(3).plus(Money.dollar(4))
+        let sum2 = three.plus(sum)
+        let bank = Bank()
+        let result = bank.reduce(sum2, to: "USD")
+        XCTAssertEqual(result, Money.dollar(10))
+    }
+    
+    func testSumPlusMoney() {
+        let three = Money.dollar(3)
+        let four = Money.dollar(4)
+        let sum = three.plus(four)
+        let sum2 = sum.plus(three)
+        let bank = Bank()
+        let result = bank.reduce(sum2, to: "USD")
+        XCTAssertEqual(result, Money.dollar(10))
+    }
+    
+    func testSumPlusSum() {
+        let three = Money.dollar(3)
+        let four = Money.dollar(4)
+        let sum = three.plus(four)
+        let sum2 = sum.plus(sum)
+        let bank = Bank()
+        let result = bank.reduce(sum2, to: "USD")
+        XCTAssertEqual(result, Money.dollar(14))
+    }
+    
+    func testSumTimes() {
+        let fiveBucks: Money = Money.dollar(5)
+        let tenFrancs: Money = Money.franc(10)
+        let bank = Bank()
+        bank.addRate(from:"CHF", to: "USD", rate: 2)
+        let sum = Sum(aug: fiveBucks, add: tenFrancs).times(2)
+        XCTAssertEqual(bank.reduce(sum, to: "USD"), Money.dollar(20))
+    }
+    
+    func testPlusOperator() {
+        let three = Money.dollar(3)
+        let four = Money.dollar(4)
+        let sum = three + four
+        let sum2 = sum + sum
+        let bank = Bank()
+        let result = bank.reduce(sum2, to: "USD")
+        XCTAssertEqual(result, Money.dollar(14))
+    }
+    
+    func testTimesOperator() {
+        let fiveBucks: Money = Money.dollar(5)
+        let tenFrancs: Money = Money.franc(10)
+        let bank = Bank()
+        bank.addRate(from:"CHF", to: "USD", rate: 2)
+        let sum = Sum(aug: fiveBucks, add: tenFrancs) * 2
+        XCTAssertEqual(bank.reduce(sum, to: "USD"), Money.dollar(20))
     }
 }

@@ -9,9 +9,9 @@
 import Foundation
 
 
-class Money: Expression {
-    var amount: Int
-    private(set) var currency: String
+struct Money: Expression {
+    let amount: Int
+    let currency: String
     
     init(_ amount:Int, currency: String) {
         self.currency = currency
@@ -30,25 +30,35 @@ class Money: Expression {
         return Money(amount * multiplier, currency: currency)
     }
     
-    func plus(added: Money) -> Expression {
-        return Sum(aug: self, add: added)
-    }
-    
     func reduce(bank: Bank, to: String) -> Money {
         let rate = bank.rate(currency, to:to)
         return Money(self.amount / rate, currency: to)
     }
 }
 
-extension Money: Equatable {}
-
 func ==(lhs: Money, rhs: Money) -> Bool {
     return lhs.amount == rhs.amount
         && lhs.currency == rhs.currency
 }
 
-protocol Expression {
+protocol Expression: Equatable {
     func reduce(bank: Bank, to: String) -> Money
+    func plus<T: Expression>(added: T) -> Sum<Self, T>
+    func times(multiplier: Int) -> Self
+}
+
+extension Expression {
+    func plus<T: Expression>(added: T) -> Sum<Self, T> {
+        return self + added
+    }
+}
+
+func +<A: Expression, B:Expression>(augend:A, addend: B) -> Sum<A, B> {
+    return Sum(aug: augend, add: addend)
+}
+
+func *<A: Expression>(lhs:A, rhs: Int) -> A {
+    return lhs.times(rhs)
 }
 
 class Bank {
@@ -61,20 +71,20 @@ class Bank {
         return rates[Pair(from: from, to: to)]!
     }
     
-    func addRate(from: String, to: String, rate: Int) {
+    func addRate(from from: String, to: String, rate: Int) {
         rates[Pair(from: from, to: to)] = rate
     }
     
-    func reduce(exp: Expression, to: String) -> Money {
+    func reduce<T: Expression>(exp: T, to: String) -> Money {
         return exp.reduce(self, to:to)
     }
 }
 
-class Sum: Expression {
-    let augend: Money
-    let addend: Money
+struct Sum<A:Expression, B:Expression>: Expression {
+    let augend: A
+    let addend: B
     
-    init(aug: Money, add: Money) {
+    init(aug: A, add: B) {
         augend = aug
         addend = add
     }
@@ -84,6 +94,15 @@ class Sum: Expression {
             + addend.reduce(bank, to: to).amount
         return Money(amount, currency: to)
     }
+    
+    func times(multiplier: Int) -> Sum<A, B> {
+        return Sum<A, B>(aug: augend.times(multiplier), add: addend.times(multiplier))
+    }
+}
+
+func ==<A, B>(lhs: Sum<A, B>, rhs: Sum<A, B>) -> Bool {
+    return lhs.augend == rhs.augend
+        && lhs.addend == rhs.addend
 }
 
 struct Pair {
