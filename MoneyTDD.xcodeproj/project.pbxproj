@@ -15,7 +15,6 @@
 		21B5E87C1C4AAA8000FEDE07 /* MoneyTDDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B5E87B1C4AAA8000FEDE07 /* MoneyTDDTests.swift */; };
 		21B73F301C4BB046001660B3 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B73F2F1C4BB046001660B3 /* Money.swift */; };
 		21B73F311C4BB09B001660B3 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B73F2F1C4BB046001660B3 /* Money.swift */; };
-		49CB4E47E4772CDFCE8F1654 /* Pods_MoneyTDDTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869451534BBDDB375356D4EF /* Pods_MoneyTDDTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,9 +39,6 @@
 		21B5E87B1C4AAA8000FEDE07 /* MoneyTDDTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTDDTests.swift; sourceTree = "<group>"; };
 		21B5E87D1C4AAA8000FEDE07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21B73F2F1C4BB046001660B3 /* Money.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
-		4E9470784ADA69CDD7430DC0 /* Pods-MoneyTDDTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTDDTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoneyTDDTests/Pods-MoneyTDDTests.release.xcconfig"; sourceTree = "<group>"; };
-		869451534BBDDB375356D4EF /* Pods_MoneyTDDTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyTDDTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A27D8B011D7095069E12C3B5 /* Pods-MoneyTDDTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyTDDTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoneyTDDTests/Pods-MoneyTDDTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,30 +53,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49CB4E47E4772CDFCE8F1654 /* Pods_MoneyTDDTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0A425E1916B092322FDE2AF6 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A27D8B011D7095069E12C3B5 /* Pods-MoneyTDDTests.debug.xcconfig */,
-				4E9470784ADA69CDD7430DC0 /* Pods-MoneyTDDTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		21B5E85A1C4AAA8000FEDE07 = {
 			isa = PBXGroup;
 			children = (
 				21B5E8651C4AAA8000FEDE07 /* MoneyTDD */,
 				21B5E87A1C4AAA8000FEDE07 /* MoneyTDDTests */,
 				21B5E8641C4AAA8000FEDE07 /* Products */,
-				0A425E1916B092322FDE2AF6 /* Pods */,
-				ABCD107CF3B853C8A718726D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,14 +100,6 @@
 			path = MoneyTDDTests;
 			sourceTree = "<group>";
 		};
-		ABCD107CF3B853C8A718726D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				869451534BBDDB375356D4EF /* Pods_MoneyTDDTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,12 +124,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 21B5E8831C4AAA8000FEDE07 /* Build configuration list for PBXNativeTarget "MoneyTDDTests" */;
 			buildPhases = (
-				5FD97FF28CABD544B06809FE /* Check Pods Manifest.lock */,
 				21B5E8731C4AAA8000FEDE07 /* Sources */,
 				21B5E8741C4AAA8000FEDE07 /* Frameworks */,
 				21B5E8751C4AAA8000FEDE07 /* Resources */,
-				7407BE3AA5F7AFA71D49A707 /* Embed Pods Frameworks */,
-				E0EF35371ADE5083EF8BCDA4 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -222,54 +195,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5FD97FF28CABD544B06809FE /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7407BE3AA5F7AFA71D49A707 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoneyTDDTests/Pods-MoneyTDDTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E0EF35371ADE5083EF8BCDA4 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoneyTDDTests/Pods-MoneyTDDTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		21B5E85F1C4AAA8000FEDE07 /* Sources */ = {
@@ -426,7 +351,6 @@
 		};
 		21B5E8841C4AAA8000FEDE07 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A27D8B011D7095069E12C3B5 /* Pods-MoneyTDDTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = MoneyTDDTests/Info.plist;
@@ -439,7 +363,6 @@
 		};
 		21B5E8851C4AAA8000FEDE07 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E9470784ADA69CDD7430DC0 /* Pods-MoneyTDDTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = MoneyTDDTests/Info.plist;
